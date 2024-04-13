@@ -1,25 +1,21 @@
-import logo from './logo.svg';
 import './App.css';
+import {Route, Routes} from "react-router";
+import {BrowserRouter} from "react-router-dom";
+import ShowDocs from "./components/pages/ShowDocs";
+import StartPage from "./components/pages/StartPage";
+import {observer} from "mobx-react-lite";
+import ShowVersionsDoc from "./components/pages/ShowVersionsDoc";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <div className="App">
+            <BrowserRouter><Routes>
+                <Route path="/start-page" element={<StartPage/>}/>
+                <Route path="/show-docs" element={<ShowDocs/>}/>
+                <Route path="/show-versions-doc" element={<ShowVersionsDoc/>}/>
+            </Routes></BrowserRouter>
+        </div>
+    );
 }
 
-export default App;
+export default observer(App);
