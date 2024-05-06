@@ -11,7 +11,8 @@ export const Doc = types
         author: types.string,
         docInputNumber: types.optional(types.string, ""),
         docOutputNumber: types.maybeNull(types.string),
-        dateInit: types.string
+        dateInit: types.string,
+        dateDeRegistration: types.string
     })
     .actions(() => {
         return {}
