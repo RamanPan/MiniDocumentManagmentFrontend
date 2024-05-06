@@ -24,8 +24,9 @@ const CreateVersionDoc = () => {
         fetch(API_CREATE_VERSION_DOC, {
             method: 'POST',
             body: data
-        }).then(() =>{
+        }).then(() => {
             docsStore.getVersionsDoc();
+            setFile(null);
             //window.location.reload();
         });
 
@@ -52,7 +53,7 @@ const CreateVersionDoc = () => {
                     </Typography>
                 </Grid>
                 <Grid sx={{width: 400, minHeight: 330}}>
-                    <Grid container sx={{mt: -1, ml:1}}>
+                    <Grid container sx={{mt: -1, ml: 1}}>
                         <input onChange={onFileChange} multiple type="file"/>
                     </Grid>
                     <Grid container sx={{}}>
@@ -61,7 +62,7 @@ const CreateVersionDoc = () => {
                             inputtype="file"
                             variant="contained"
                             onClick={uploadFile}
-                            sx={{ml: 3, mt: 1}}
+                            sx={{ml: 3, mt: 1, width: '80%'}}
                         >Создать документ
                         </Button>
                     </Grid>
