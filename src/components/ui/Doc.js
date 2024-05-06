@@ -8,6 +8,7 @@ import {useNavigate} from "react-router";
 
 const Doc = (props) => {
     const [docOutputNumber, setDocOutputNumber] = useState(props.docOutputNumber);
+    const [dateDeRegister, setDateDeRegister] = useState(props.dateDeRegistration);
     const [field, setField] = useState("");
     const navigate = useNavigate();
     const {docsStore} = useStore();
@@ -16,6 +17,7 @@ const Doc = (props) => {
             postReq(API_REMOVE_DOC,true, {id: props.id, docOutputNumber: field})
                 .then(() => {
                         setDocOutputNumber(field);
+                        setDateDeRegister(new Date().toLocaleDateString());
                     }
                 );
         }
@@ -74,6 +76,14 @@ const Doc = (props) => {
                             {props.dateInit}
                         </Typography>
                     </Grid>
+                    {docOutputNumber !== null ? (<Grid container sx={{maxWidth: 800}}>
+                            <Typography align='left' variant='h3'>
+                                Дата снятия:
+                            </Typography>
+                            <Typography align='center' sx={{ml: 1}} variant='h4'>
+                                {dateDeRegister}
+                            </Typography>
+                        </Grid>) : (<Grid/>)}
                     <Grid container sx={{maxWidth: 800}}>
                         <Typography align='left' variant='h3'>
                             Входящий номер:

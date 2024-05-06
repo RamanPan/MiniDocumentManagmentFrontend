@@ -68,7 +68,7 @@ const ShowDocs = () => {
                                 <Doc id={data.id} infoDocId={data.infoDocId} docName={data.docName}
                                      author={data.author} docInputNumber={data.docInputNumber}
                                      docOutputNumber={data.docOutputNumber}
-                                     dateInit={getDate(data.dateInit)}/>))}
+                                     dateInit={getDate(data.dateInit)} dateDeRegistration = {getDate(data.dateDeRegistration)}/>))}
                             {checkCreation ? <CreateDoc/> :
                                 <Button type="submit" variant="contained" onClick={handleChangeState}
                                         sx={{

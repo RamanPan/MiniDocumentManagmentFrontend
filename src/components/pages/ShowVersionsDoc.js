@@ -1,11 +1,8 @@
 import useStore from "../utils/useStore";
 import {Box, Button, Grid, Typography} from "@mui/material";
-import {API_GET_VERSION_DOC} from "../utils/constants";
 import {observer} from "mobx-react-lite";
 import {useEffect, useState} from "react";
-import {getReq} from "../utils/apiCalls";
 import VersionDoc from "../ui/VersionDoc";
-import CreateDoc from "../ui/CreateDoc";
 import CreateVersionDoc from "../ui/CreateVersionDoc";
 
 const ShowVersionsDoc = () => {
