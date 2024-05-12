@@ -27,9 +27,8 @@ const CreateVersionDoc = () => {
         }).then(() => {
             docsStore.getVersionsDoc();
             setFile(null);
-            //window.location.reload();
         });
-
+        docsStore.setCheckCreation(false);
     }
 
     return (

@@ -1,22 +1,18 @@
 import {Box, Button, Grid, Typography} from "@mui/material";
 import {API_GET_FILE_BY_VERSION_ID} from "../utils/constants";
+import {observer} from "mobx-react-lite";
 
 const VersionDoc = (props) => {
-
     const downloadFile = () => {
         fetch(API_GET_FILE_BY_VERSION_ID + "/" + props.id)
             .then(response => {
                 response.blob().then(blob => {
                     const url = window.URL.createObjectURL(blob);
-                    // Создаем ссылку для скачивания файла
                     const link = document.createElement('a');
                     link.href = url;
-                    console.log(props.fileName)
-                    link.setAttribute('download', props.fileName); // Указываем имя файла
-                    // Добавляем ссылку на страницу и эмулируем клик для скачивания
+                    link.setAttribute('download', props.fileName);
                     document.body.appendChild(link);
                     link.click();
-                    // Очищаем ссылку
                     link.parentNode.removeChild(link);
                 });
             });
@@ -55,7 +51,7 @@ const VersionDoc = (props) => {
                             type="submit"
                             variant="contained"
                             onClick={downloadFile}
-                            sx={{ml: 3, mt: 2,width: '80%'}}
+                            sx={{ml: 3, mt: 2, width: '80%'}}
                         >Скачать файл
                         </Button>
                     </Grid>
@@ -65,4 +61,4 @@ const VersionDoc = (props) => {
         </div>
     );
 }
-export default VersionDoc;
+export default observer(VersionDoc);

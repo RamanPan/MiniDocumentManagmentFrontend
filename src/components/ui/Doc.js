@@ -14,10 +14,13 @@ const Doc = (props) => {
     const {docsStore} = useStore();
     const handlerButtonRemove = () => {
         if (field !== "") {
-            postReq(API_REMOVE_DOC,true, {id: props.id, docOutputNumber: field})
+            postReq(API_REMOVE_DOC, true, {id: props.id, docOutputNumber: field})
                 .then(() => {
                         setDocOutputNumber(field);
-                        setDateDeRegister(new Date().toLocaleDateString());
+                        let date = new Date().toLocaleDateString();
+                        setDateDeRegister(date);
+                        props.doc.setDocOutputNumber(field);
+                        props.doc.setDateDeRegistration(date);
                     }
                 );
         }
@@ -77,13 +80,13 @@ const Doc = (props) => {
                         </Typography>
                     </Grid>
                     {docOutputNumber !== null ? (<Grid container sx={{maxWidth: 800}}>
-                            <Typography align='left' variant='h3'>
-                                Дата снятия:
-                            </Typography>
-                            <Typography align='center' sx={{ml: 1}} variant='h4'>
-                                {dateDeRegister}
-                            </Typography>
-                        </Grid>) : (<Grid/>)}
+                        <Typography align='left' variant='h3'>
+                            Дата снятия:
+                        </Typography>
+                        <Typography align='center' sx={{ml: 1}} variant='h4'>
+                            {dateDeRegister}
+                        </Typography>
+                    </Grid>) : (<Grid/>)}
                     <Grid container sx={{maxWidth: 800}}>
                         <Typography align='left' variant='h3'>
                             Входящий номер:
@@ -117,7 +120,7 @@ const Doc = (props) => {
                                 label='Исходящий номер'
                                 name="name"
                                 onChange={updateDocOutputNumber}
-                                sx={{width: 320, mt: 2, ml: 3,backgroundColor:'#FFFFFF'}}
+                                sx={{width: 320, mt: 2, ml: 3, backgroundColor: '#FFFFFF'}}
                             />
                             <Button type="submit" variant="contained" onClick={handlerButtonRemove}
                                     sx={{ml: 13.3, backgroundColor: "#b60a1c"}}>Снять с

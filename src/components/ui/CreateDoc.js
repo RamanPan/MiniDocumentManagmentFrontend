@@ -3,14 +3,12 @@ import {observer} from "mobx-react-lite";
 import {useState} from "react";
 import useStore from "../utils/useStore";
 import {API_CREATE_DOC} from "../utils/constants";
-import {useNavigate} from "react-router";
 
 const CreateDoc = () => {
     const [file, setFile] = useState(null);
     const [docName, setDocName] = useState("");
     const [inputNumber, setInputNumber] = useState("");
     const {docsStore} = useStore();
-    const navigate = useNavigate();
     const onFileChange = (event) => {
         setFile(event.target.files[0]);
     }
@@ -41,11 +39,9 @@ const CreateDoc = () => {
             method: 'POST',
             body: data
         }).then(response => {
-            //window.location.reload();
             response.json().then(data => {
                 docsStore.getDocs();
-                docsStore.setDocIdSelected(data.id);
-                navigate("/show-versions-doc");
+                docsStore.setCheckCreation(false);
             })
         });
 

@@ -16,7 +16,16 @@ export const Doc = types
     })
     .actions(() => {
         return {}
-    });
+    })
+    .actions((self) => ({
+            setDocOutputNumber(data) {
+                self.docOutputNumber = data;
+            },
+            setDateDeRegistration(data) {
+                self.dateDeRegistration = data;
+            }
+        }
+    ));
 export const VersionDoc = types.model('VersionDoc', {
     id: types.identifierNumber,
     docId: types.integer,
@@ -28,7 +37,8 @@ export const VersionDoc = types.model('VersionDoc', {
 const DocsStore = types.model('DocsStore', {
     docs: types.array(Doc),
     versionDocs: types.array(VersionDoc),
-    login: types.optional(types.string,"admin"),
+    login: types.optional(types.string, "admin"),
+    checkCreation: types.optional(types.boolean, false),
     docIdSelected: types.maybeNull(types.integer),
 }).actions((self) => ({
     setDocs(data) {
@@ -42,6 +52,9 @@ const DocsStore = types.model('DocsStore', {
     },
     setLogin(data) {
         self.login = data;
+    },
+    setCheckCreation(data) {
+        self.checkCreation = data;
     }
 })).actions(self => {
     return {
