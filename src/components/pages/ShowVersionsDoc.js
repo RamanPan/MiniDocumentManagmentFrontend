@@ -1,24 +1,25 @@
 import useStore from "../utils/useStore";
 import {Box, Button, Grid, Typography} from "@mui/material";
 import {observer} from "mobx-react-lite";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import VersionDoc from "../ui/VersionDoc";
 import CreateVersionDoc from "../ui/CreateVersionDoc";
+import {useNavigate} from "react-router";
 
 const ShowVersionsDoc = () => {
     const {docsStore} = useStore();
-    const [versionsDoc, setVersionsDoc] = useState([])
-    const [checkCreation, setCheckCreation] = useState(false);
+    const navigate = useNavigate();
 
     function handleChangeState() {
-        setCheckCreation(true);
+        docsStore.setCheckCreation(true);
+    }
+
+    function handleBack() {
+        navigate("/show-docs");
     }
 
     const fetchData = () => {
-        //getReq(API_GET_VERSION_DOC, true, docsStore.docIdSelected)
-        docsStore.getVersionsDoc().then(data => {
-                setVersionsDoc(data)
-            })
+        docsStore.getVersionsDoc();
     }
     useEffect(() => {
         fetchData()
@@ -42,11 +43,12 @@ const ShowVersionsDoc = () => {
                         flexDirection: 'column',
                         alignItems: 'flex-start',
                     }}
-                >
+                > <Grid container>
                     <Typography component="h1" variant="h1" sx={{mr: 0.5}}>
                         ПРОСМОТР ВЕРСИИ ДОКУМЕНТА
                     </Typography>
-
+                    <Button sx={{ml: 50}} type="submit" onClick={handleBack}>Назад</Button>
+                </Grid>
                     <Grid container sx={{mt: 3, mb: 2}}>
                         <Grid container sx={{
                             width: 1400,
@@ -54,8 +56,8 @@ const ShowVersionsDoc = () => {
                             {docsStore.versionDocs.map(data => (
                                 <VersionDoc id={data.id} docId={data.docId} number={data.number} author={data.author}
                                             fileName={data.fileName} fileType={data.fileType}
-                                            />))}
-                            {checkCreation ? <CreateVersionDoc/> :
+                                />))}
+                            {docsStore.checkCreation ? <CreateVersionDoc/> :
                                 <Button type="submit" variant="contained" onClick={handleChangeState}
                                         sx={{
                                             mt: 3,

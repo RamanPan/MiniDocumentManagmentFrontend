@@ -15,20 +15,6 @@ const request = (options, type) => {
             })
         );
 };
-const requestForFile = (options) => {
-    const headers = new Headers({})
-    const defaults = {headers: headers};
-    options = Object.assign({}, defaults, options);
-    return fetch(options.url, options)
-        .then(response =>
-            response.json().then(json => {
-                if (!response.ok) {
-                    return Promise.reject(json);
-                }
-                return json;
-            })
-        );
-};
 
 export function postReq(path, type, Data) {
     return request({
@@ -46,28 +32,5 @@ export function getReq(path, type, data) {
     return request({
         url: urlPath,
         method: 'GET'
-    }, type);
-}
-
-export function putReq(path, Data, type) {
-    return request({
-        url: path,
-        method: 'GET',
-        body: JSON.stringify(Data)
-    }, type);
-}
-
-export function postReqFile(path, Data, type) {
-    return requestForFile({
-        url: path,
-        method: 'POST',
-        body: Data
-    }, type);
-}
-
-export function deleteReq(path, data, type) {
-    return request({
-        url: path + "/" + data,
-        method: 'DELETE',
     }, type);
 }

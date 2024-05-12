@@ -3,16 +3,17 @@ import Doc from "../ui/Doc";
 import useStore from "../utils/useStore";
 import {observer} from "mobx-react-lite";
 import {getDate} from "../utils/constants";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 import CreateDoc from "../ui/CreateDoc";
 
 
 const ShowDocs = () => {
     const {docsStore} = useStore();
-    const [checkCreation, setCheckCreation] = useState(false);
+
     function handleChangeState() {
-        setCheckCreation(true);
+        docsStore.setCheckCreation(true);
     }
+
     const updateLogin = (event) => {
         const {value} = event.target;
         docsStore.setLogin(value);
@@ -54,7 +55,7 @@ const ShowDocs = () => {
                         required={true}
                         label='Имя'
                         name="name"
-                        defaultValue={'admin'}
+                        defaultValue={docsStore.login}
                         onChange={updateLogin}
                         sx={{width: 320, mt: 1, ml: 3, backgroundColor: '#0ea6d9'}}
                     />
@@ -65,11 +66,12 @@ const ShowDocs = () => {
                             width: 1400,
                         }}>
                             {docsStore.docs.map(data => (
-                                <Doc id={data.id} infoDocId={data.infoDocId} docName={data.docName}
+                                <Doc doc={data} id={data.id} infoDocId={data.infoDocId} docName={data.docName}
                                      author={data.author} docInputNumber={data.docInputNumber}
                                      docOutputNumber={data.docOutputNumber}
-                                     dateInit={getDate(data.dateInit)} dateDeRegistration = {getDate(data.dateDeRegistration)}/>))}
-                            {checkCreation ? <CreateDoc/> :
+                                     dateInit={getDate(data.dateInit)}
+                                     dateDeRegistration={getDate(data.dateDeRegistration)}/>))}
+                            {docsStore.checkCreation ? <CreateDoc/> :
                                 <Button type="submit" variant="contained" onClick={handleChangeState}
                                         sx={{
                                             mt: 3,
